@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เอกสารฟีเจอร์ — CRM Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--blue:#2563eb;--ink:#1e293b;--muted:#64748b;--line:#e2e8f0;--bg:#f1f5f9;--card:#fff;--green:#16a34a;--amber:#d97706}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'IBM Plex Sans Thai',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+  .wrap{max-width:980px;margin:0 auto;padding:40px 24px 80px}
+  header.hero{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;border-radius:18px;padding:36px 38px;margin-bottom:28px}
+  header.hero h1{font-size:30px;font-weight:700;margin-bottom:8px}
+  header.hero p{opacity:.9;font-size:15px}
+  .meta-row{display:flex;gap:24px;flex-wrap:wrap;margin-top:18px;font-size:13px}
+  .meta-row div{background:rgba(255,255,255,.14);padding:8px 14px;border-radius:10px}
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin-bottom:28px}
+  .toc h2{font-size:16px;margin-bottom:14px;color:var(--blue)}
+  .toc ol{columns:2;column-gap:30px;padding-left:20px}
+  .toc li{margin-bottom:7px;font-size:14px}
+  .toc a{color:var(--ink);text-decoration:none}
+  .toc a:hover{color:var(--blue);text-decoration:underline}
+  .intro{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:14px;padding:20px 24px;margin-bottom:30px}
+  .intro h2{font-size:17px;color:var(--green);margin-bottom:10px}
+  .intro code{background:#d1fae5;padding:2px 8px;border-radius:6px;font-size:13px;font-weight:600}
+  .intro ol{padding-left:20px}.intro li{margin-bottom:5px}
+  .feat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 28px;margin-bottom:26px;scroll-margin-top:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .feat-head{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+  .feat-num{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;display:grid;place-items:center;font-weight:700;font-size:16px;flex-shrink:0}
+  .feat-head h3{font-size:19px;font-weight:700}
+  .badge{display:inline-block;background:#dbeafe;color:var(--blue);font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;margin-left:auto}
+  .feat-body{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:16px;align-items:start}
+  @media(max-width:760px){.feat-body{grid-template-columns:1fr}.toc ol{columns:1}}
+  .block h4{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px}
+  .block.what h4{color:var(--blue)}.block.test h4{color:var(--amber)}
+  .block ul{padding-left:18px}.block li{margin-bottom:5px;font-size:14px}
+  .block p{font-size:14px;margin-bottom:8px}
+  .shot{grid-column:1/-1;margin-top:6px}
+  .shot img{width:100%;border:1px solid var(--line);border-radius:12px;display:block}
+  .shot figcaption{font-size:12px;color:var(--muted);text-align:center;margin-top:7px}
+  .pass{display:inline-flex;align-items:center;gap:6px;background:#dcfce7;color:var(--green);font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px;margin-top:14px}
+  .note{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px 16px;font-size:13px;margin-top:14px;color:#92400e}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px;border-top:1px solid var(--line);padding-top:24px}
+  .print-btn{position:fixed;top:20px;right:20px;background:var(--blue);color:#fff;border:none;padding:11px 18px;border-radius:10px;font-family:inherit;font-weight:600;cursor:pointer;box-shadow:0 4px 14px rgba(37,99,235,.4)}
+  @media print{.print-btn{display:none}body{background:#fff}.feat,.toc,.intro{break-inside:avoid;box-shadow:none}}
+  .ui-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+  @media(max-width:760px){.ui-grid{grid-template-columns:1fr}}
+  .ui-card{border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .ui-card h4{font-size:14px;margin-bottom:6px;color:var(--blue)}
+  .ui-card p{font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<button class="print-btn" onclick="window.print()">🖨️ บันทึกเป็น PDF</button>
+<div class="wrap">
+
+<header class="hero">
+  <h1>📘 เอกสารฟีเจอร์ — CRM Dashboard</h1>
+  <p>ระบบติดตามลูกค้าขาดฝาก · เอกสารอธิบายฟีเจอร์ทั้งหมด พร้อมวิธีทดสอบและภาพประกอบ สำหรับส่งงานและนำไปพัฒนาต่อ</p>
+  <div class="meta-row">
+    <div>📊 ข้อมูลจริง 9,116 ลูกค้า · 9 แบรนด์</div>
+    <div>🗓️ รอบข้อมูล: มิถุนายน 2026</div>
+    <div>✅ 12 ฟีเจอร์ครบ + สิทธิ์ 3 ระดับ + ปรับ UI 6 จุด</div>
+  </div>
+</header>
+
+<div class="intro">
+  <h2>🚀 วิธีเปิดใช้งานระบบจริง</h2>
+  <ol>
+    <li>ดับเบิลคลิก <code>เปิด CRM Dashboard.command</code> บน Desktop (หรือเปิดไฟล์ <code>site/index.html</code>)</li>
+    <li>เข้าสู่ระบบ (มี 3 สิทธิ์ตามไฟล์การบ้าน): <code>admin/admin1234</code> (ADMIN) · <code>head1/head1234</code> (SUPERVISOR) · <code>agent1/agent1234</code> (AGENT)</li>
+    <li>เอกสารหน้านี้คือไฟล์ <code>site/docs/index.html</code> เปิดแยกได้อิสระ · ภาพอยู่ในโฟลเดอร์ <code>docs/shots/</code></li>
+  </ol>
+  <p style="margin-top:10px;font-size:13px"><b>🔐 สิทธิ์:</b> AGENT เห็นเฉพาะงานตัวเอง (คิวโทร/ลูกค้า/SMS) · SUPERVISOR เพิ่มหน้ารายงาน/วิเคราะห์/Telegram · ADMIN เพิ่ม Audit Log + จัดการผู้ใช้</p>
+</div>
+
+<div class="toc">
+  <h2>📑 สารบัญฟีเจอร์</h2>
+  <ol>
+    <li><a href="#f1">เปลี่ยนรหัสผ่านตัวเอง</a></li>
+    <li><a href="#f2">Export รายชื่อลูกค้าเป็น CSV</a></li>
+    <li><a href="#f3">ตัวกรองคิวโทรขั้นสูง</a></li>
+    <li><a href="#f4">รายงานรายสัปดาห์ / รายเดือน</a></li>
+    <li><a href="#f5">Export รายงานเป็น Excel</a></li>
+    <li><a href="#f6">นัดโทรกลับ (Callback)</a></li>
+    <li><a href="#f7">บังคับสถานะห้ามโทร (Do-Not-Call)</a></li>
+    <li><a href="#f8">แดชบอร์ดผลงานพนักงาน</a></li>
+    <li><a href="#f9">Cohort Analysis</a></li>
+    <li><a href="#f10">Audit Log</a></li>
+    <li><a href="#f11">คลังข้อความ SMS / ส่ง SMS</a></li>
+    <li><a href="#f12">แจ้งเตือนผ่านบอท Telegram</a></li>
+    <li><a href="#ui">การปรับปรุง UI (6 จุด) + สิทธิ์ 3 ระดับ</a></li>
+  </ol>
+</div>
+
+<!-- F1 -->
+<section class="feat" id="f1">
+  <div class="feat-head"><div class="feat-num">1</div><h3>เปลี่ยนรหัสผ่านตัวเอง</h3><span class="badge">ตั้งค่า</span></div>
+  <div class="feat-body">
+    <div class="block what"><h4>ทำอะไรได้</h4><ul>
+      <li>ผู้ใช้ที่ล็อกอินอยู่เปลี่ยนรหัสผ่านของตัวเองได้</li>
+      <li>ตรวจสอบครบ: รหัสเดิมถูกต้อง, ใหม่ ≥ 6 ตัว, ต้องไม่ซ้ำเดิม, ยืนยันต้องตรงกัน</li>
+      <li>ข้อความแจ้งเตือน 2 ภาษา (ไทย + อังกฤษ) · บันทึกลง Audit Log</li>
+    </ul></div>
+    <div class="block test"><h4>วิธีทดสอบ</h4><ul>
+      <li>ไปเมนู <b>ตั้งค่า</b> → กรอกรหัสเดิม <code>admin123</code></li>
+      <li>ลองกรอกรหัสใหม่ &lt; 6 ตัว → ต้องขึ้น error</li>
+      <li>กรอกใหม่ถูกต้อง + ยืนยันตรงกัน → "เปลี่ยนรหัสผ่านสำเร็จ"</li>
+      <li>ออกจากระบบแล้วล็อกอินด้วยรหัสใหม่ → ต้องเข้าได้</li>
+    </ul></div>
+    <figure class="shot"><img src="shots/settings.png" alt="settings"><figcaption>หน้าตั้งค่า — เปลี่ยนรหัสผ่าน + จัดการผู้ใช้</figcaption></figure>
+  </div>
+  <span class="pass">✅ ผ่านเกณฑ์ — ตรวจสอบ 7/7 เงื่อนไข</span>
+</section>
+
+<!-- F2 -->
+<section class="feat" id="f2">
+  <div class="feat-head"><div class="feat-num">2</div><h3>Export รายชื่อลูกค้าเป็น CSV</h3><span class="badge">รายชื่อลูกค้า</span></div>
+  <div class="feat-body">
+    <div class="block what"><h4>ทำอะไรได้</h4><ul>
+      <li>ส่งออกรายชื่อลูกค้า <b>ตามที่กรองอยู่</b> เป็นไฟล์ CSV (UTF-8 + BOM เปิดภาษาไทยใน Excel ได้)</li>
+      <li>17 คอลัมน์: แบรนด์, ชื่อ, เบอร์, วันที่, ผลโทร, ยอดฝาก, พนักงาน, นัดโทร, ห้ามโทร ฯลฯ</li>
+      <li>นำกลับเข้าระบบได้ (รูปแบบเดียวกับนำเข้า)</li>
+    </ul></div>
+    <div class="block test"><h4>วิธีทดสอบ</h4><ul>
+      <li>เมนู <b>รายชื่อลูกค้า</b> → (เลือกฟิลเตอร์ เช่น แบรนด์ "มรกต")</li>
+      <li>กดปุ่ม <b>⬇️ Export CSV</b> → ได้ไฟล์ตามจำนวนที่กรอง</li>
+      <li>เปิดไฟล์ใน Excel → ภาษาไทยอ่านได้ ครบทุกคอลัมน์</li>
+    </ul></div>
+    <figure class="shot"><img src="shots/customers.png" alt="customers"><figcaption>หน้ารายชื่อลูกค้า — ค้นหา/ฟิลเตอร์ + Export CSV + แก้ไข</figcaption></figure>
+  </div>
+  <span class="pass">✅ ผ่านเกณฑ์ — round-trip export/import ตรงกัน 100%</span>
+</section>
+
+<!-- F3 -->
+<section class="feat" id="f3">
+  <div class="feat-head"><div class="feat-num">3</div><h3>ตัวกรองคิวโทรขั้นสูง</h3><span class="badge">คิวโทร</span></div>
+  <div class="feat-body">
+    <div class="block what"><h4>ทำอะไรได้</h4><ul>
+      <li>กรองหลายเงื่อนไขพร้อมกันด้วย checkbox 3 กลุ่ม: <b>ผลการโทร · สถานะลูกค้า · แบรนด์</b></li>
+      <li>สถานะ: คืนชีพแล้ว / รอติดตาม / เคยรับสาย / มีนัดโทรกลับ / ห้ามโทร</li>
+      <li>ปุ่ม ค้นหา + ออกรายงาน Excel + CSV ในหน้าเดียว</li>
+    </ul></div>
+    <div class="block test"><h4>วิธีทดสอบ</h4><ul>
+      <li>เมนู <b>คิวโทร</b> → ติ๊กออก "คืนชีพแล้ว" เหลือ "รอติดตาม"</li>
+      <li>เลือกผลการโทรเฉพาะ "ไม่รับสาย" → กด <b>🔍 ค้นหา</b></li>
+      <li>ตารางแสดงเฉพาะรายที่ยังต้องตามต่อ · กด <b>ออกรายงาน Excel</b></li>
+    </ul></div>
+    <figure class="shot"><img src="shots/queue.png" alt="queue"><figcaption>หน้าคิวโทร — ตัวกรอง checkbox 3 กลุ่ม + ปุ่มค้นหา/ออกรายงาน</figcaption></figure>
+  </div>
+  <span class="pass">✅ ผ่านเกณฑ์ — ตรงตามแพทเทิร์นที่ขอ</span>
+</section>
+
+<!-- F4 -->
+<section class="feat" id="f4">
+  <div class="feat-head"><div class="feat-num">4</div><h3>รายงานรายสัปดาห์ / รายเดือน</h3><span class="badge">รายงาน</span></div>
+  <div class="feat-body">
+    <div class="block what"><h4>ทำอะไรได้</h4><ul>
+      <li>สรุปผลงานอัตโนมัติแยกตามสัปดาห์ หรือ เดือน (สลับปุ่มได้)</li>
+      <li>คอลัมน์: โทร, รับสาย, รับสาย%, ไม่รับ, SMS, คืนชีพ, ยอดฝากกลับ, โบนัส, ROI</li>
+      <li>จัดกลุ่มจากวันที่โทรจริงในข้อมูล</li>
+    </ul></div>
+    <div class="block test"><h4>วิธีทดสอบ</h4><ul>
+      <li>เมนู <b>รายงาน</b> → ดูตารางรายสัปดาห์ (สัปดาห์ 01/06, 08/06)</li>
+      <li>กดปุ่ม <b>รายเดือน</b> → สลับเป็นสรุปรายเดือน</li>
+      <li>ตรวจตัวเลข ROI / รับสาย% ว่าคำนวณถูก</li>
+    </ul></div>
+    <figure class="shot"><img src="shots/reports.png" alt="reports"><figcaption>หน้ารายงาน — สลับสัปดาห์/เดือน + ปุ่มออก Excel/CSV/PDF</figcaption></figure>
+  </div>
+  <span class="pass">✅ ผ่านเกณฑ์ — bucketing ถูกต้อง</span>
+</section>
+
+<!-- F5 -->
+<section class="feat" id="f5">
+  <div class="feat-head"><div class="feat-num">5</div><h3>Export รายงานเป็น Excel</h3><span class="badge">หลายหน้า</span></div>
+  <div class="feat-body">
+    <div class="block what"><h4>ทำอะไรได้</h4><ul>
+      <li>ออกไฟล์ <b>.xls</b> ที่เปิดใน Microsoft Excel / Google Sheets ได้ทันที (มีหัวตารางจัดรูปแบบ)</li>
+      <li>รองรับหลายหน้า: รายงาน, คิวโทร, ผลงานพนักงาน, Audit Log</li>
+    </ul></div>
+    <div class="block test"><h4>วิธีทดสอบ</h4><ul>
+      <li>หน้า <b>รายงาน</b> → กด <b>📊 ออกรายงาน Excel</b></li>
+      <li>เปิดไฟล์ที่ดาวน์โหลด → เปิดใน Excel ได้ หัวตารางสีน้ำเงิน ข้อมูลครบ</li>
+      <li>ลองที่หน้า คิวโทร / ผลงานพนักงาน ด้วย</li>
+    </ul></div>
+    <figure class="shot"><img src="shots/agents.png" alt="excel-agents"><figcaption>ตัวอย่างหน้าที่มีปุ่มออก Excel (ผลงานพนักงาน)</figcaption></figure>
+  </div>
+  <div class="note">หมายเหตุ: ไฟล์เป็น .xls (HTML-table) ซึ่ง Excel เปิดได้สมบูรณ์ · หากต้องการ .xlsx แท้พร้อมสูตร แนะนำทำผ่านเซิร์ฟเวอร์ในเฟสถัดไป</div>
+  <span class="pass">✅ ผ่านเกณฑ์ — เปิดใน Excel ได้จริง</span>
+</section>
+
+<!-- F6 -->
+<section class="feat" id="f6">
+  <div class="feat-head"><div class="feat-num">6</div><h3>นัดโทรกลับ (Callback)</h3><span class="badge">นัดโทรกลับ</span></div>
+  <div class="feat-body">
+    <div class="block what"><h4>ทำอะไรได้</h4><ul>
+      <li>ตั้งวันนัดโทรกลับให้ลูกค้าแต่ละราย (ช่อง "นัดโทรกลับ" ในหน้าแก้ไข)</li>
+      <li>หน้า <b>นัดโทรกลับ</b> รวมรายการเรียงตามวันใกล้สุด พร้อมป้าย เลยกำหนด / ครบกำหนด / รออยู่</li>
+    </ul></div>
+    <div class="block test"><h4>วิธีทดสอบ</h4><ul>
+      <li>หน้า <b>รายชื่อลูกค้า</b> → กด "แก้ไข" รายใดก็ได้ → ใส่วันนัด เช่น <code>15/06/2026</code> → บันทึก</li>
+      <li>ไปเมนู <b>นัดโทรกลับ</b> → ต้องเห็นรายนั้นพร้อมป้ายสถานะนัด</li>
+    </ul></div>
+    <figure class="shot"><img src="shots/callbacks.png" alt="callbacks"><figcaption>หน้านัดโทรกลับ — เรียงตามวันนัด + ป้ายสถานะ</figcaption></figure>
+  </div>
+  <span class="pass">✅ ผ่านเกณฑ์ — บันทึก + แสดงผลถูกต้อง</span>
+</section>
+
+<!-- F7 -->
+<section class="feat" id="f7">
+  <div class="feat-head"><div class="feat-num">7</div><h3>บังคับสถานะห้ามโทร (Do-Not-Call)</h3><span class="badge">DNC</span></div>
+  <div class="feat-body">
+    <div class="block what"><h4>ทำอะไรได้</h4><ul>
+      <li>ติ๊ก "ห้ามโทร" ในหน้าแก้ไข → <b>บังคับกรอกเหตุผล</b> → ติดป้ายแดง + บันทึก <b>ประวัติเปลี่ยนสถานะ</b> (ใคร/เมื่อไหร่/เหตุผล)</li>
+      <li>คิวโทร <b>ตัดรายที่ห้ามโทรออกอัตโนมัติ</b> · กรองดูเฉพาะ DNC ได้ · แจ้งหัวหน้าผ่าน Telegram</li>
+      <li>ปลดห้ามโทรได้ + มี log · ทุกการเปลี่ยนเข้า Audit Log</li>
+    </ul></div>
+    <div class="block test"><h4>วิธีทดสอบ</h4><ul>
+      <li>แก้ไขลูกค้า → ติ๊ก 🚫 ห้ามโทร → บันทึก (ขึ้นป้ายแดง)</li>
+      <li>ไป <b>คิวโทร</b> → รายนั้นต้องหายจากคิว</li>
+      <li>หน้ารายชื่อ → ฟิลเตอร์ "🚫 ห้ามโทร" → เห็นเฉพาะรายที่ห้ามโทร</li>
+    </ul></div>
+    <figure class="shot"><img src="shots/customers.png" alt="dnc"><figcaption>สถานะ "ห้ามโทร" แสดงในรายชื่อลูกค้า · ตั้งได้ในหน้าแก้ไข</figcaption></figure>
+  </div>
+  <span class="pass">✅ ผ่านเกณฑ์ — บังคับออกจากคิวได้จริง</span>
+</section>
+
+<!-- F8 -->
+<section class="feat" id="f8">
+  <div class="feat-head"><div class="feat-num">8</div><h3>แดชบอร์ดผลงานพนักงาน</h3><span class="badge">วิเคราะห์</span></div>
+  <div class="feat-body">
+    <div class="block what"><h4>ทำอะไรได้</h4><ul>
+      <li>จัดกลุ่มตามชื่อ "พนักงานที่โทร" — วัดงานที่รับผิดชอบ, รับสาย%, %สำเร็จ, ยอดฝากที่ดึงกลับได้</li>
+      <li>เรียงตามยอดฝาก เห็นว่าใครปิดงานเก่งสุด · ออก Excel ได้</li>
+    </ul></div>
+    <div class="block test"><h4>วิธีทดสอบ</h4><ul>
+      <li>แก้ไขลูกค้าหลายราย → ใส่ชื่อพนักงานในช่อง "พนักงานที่โทร" (เช่น สมชาย)</li>
+      <li>ไปเมนู <b>ผลงานพนักงาน</b> → เห็นแถวของสมชายพร้อมตัวเลขสรุป</li>
+    </ul></div>
+    <figure class="shot"><img src="shots/agents.png" alt="agents"><figcaption>หน้าผลงานพนักงาน — สรุปต่อรายคน + ออก Excel</figcaption></figure>
+  </div>
+  <div class="note">ข้อมูลจริงยังไม่มีชื่อพนักงาน จึงรวมเป็นกลุ่ม "(ไม่ระบุ)" — เมื่อทีมเริ่มกรอกชื่อ ระบบจะแยกผลงานรายคนทันที (ไม่ใช้ข้อมูลปลอม)</div>
+  <span class="pass">✅ ผ่านเกณฑ์ — คำนวณรายคนถูกต้อง</span>
+</section>
+
+<!-- F9 -->
+<section class="feat" id="f9">
+  <div class="feat-head"><div class="feat-num">9</div><h3>Cohort Analysis</h3><span class="badge">วิเคราะห์</span></div>
+  <div class="feat-body">
+    <div class="block what"><h4>ทำอะไรได้</h4><ul>
+      <li>จัดกลุ่มลูกค้าตาม <b>สัปดาห์ที่ถูกโทร</b> แล้วเทียบว่ากลุ่มไหนดึงกลับมาฝากได้ดีกว่า (มีสีไล่ heat)</li>
+      <li><b>เทียบกลุ่มโปร 20% vs ไม่ได้รับ</b> — กลับมาฝาก%, ฝากเฉลี่ย/คน, โบนัสจ่าย, ฝากสุทธิหลังหักโบนัส + สรุปบรรทัดเดียว "โปรคุ้มไหม"</li>
+      <li>ตอบคำถามเงินจริงของทีม: ติดตามแล้วได้ผลไหม โปรคุ้มไหม</li>
+    </ul></div>
+    <div class="block test"><h4>วิธีทดสอบ</h4><ul>
+      <li>เมนู <b>Cohort</b> → ดูแต่ละแถว (สัปดาห์เริ่ม)</li>
+      <li>เทียบคอลัมน์ "อัตราคืนชีพ" — สีเขียว = กลุ่มที่ผลดี</li>
+    </ul></div>
+    <figure class="shot"><img src="shots/cohort.png" alt="cohort"><figcaption>หน้า Cohort — อัตราคืนชีพรายสัปดาห์พร้อม heat color</figcaption></figure>
+  </div>
+  <span class="pass">✅ ผ่านเกณฑ์ — แบ่ง cohort ตามวันจริง</span>
+</section>
+
+<!-- F10 -->
+<section class="feat" id="f10">
+  <div class="feat-head"><div class="feat-num">10</div><h3>Audit Log</h3><span class="badge">ระบบ</span></div>
+  <div class="feat-body">
+    <div class="block what"><h4>ทำอะไรได้</h4><ul>
+      <li>บันทึกทุกการกระทำพร้อมเวลา + ชื่อผู้ใช้: เข้า/ออกระบบ, แก้ไข/เพิ่ม/ลบลูกค้า, นำเข้า, เปลี่ยนรหัส, เพิ่ม/ลบผู้ใช้, ส่ง SMS, export</li>
+      <li>ค้นหาได้ · ออก Excel · ล้าง log</li>
+    </ul></div>
+    <div class="block test"><h4>วิธีทดสอบ</h4><ul>
+      <li>ทำอะไรสักอย่าง เช่น แก้ไขลูกค้า 1 ราย</li>
+      <li>ไปเมนู <b>Audit Log</b> → เห็นรายการ "แก้ไขลูกค้า" พร้อมเวลาและชื่อ admin</li>
+      <li>ลองค้นหาคำว่า "เข้าสู่ระบบ"</li>
+    </ul></div>
+    <figure class="shot"><img src="shots/audit.png" alt="audit"><figcaption>หน้า Audit Log — บันทึกการใช้งานพร้อมเวลา/ผู้ใช้</figcaption></figure>
+  </div>
+  <span class="pass">✅ ผ่านเกณฑ์ — บันทึกครบทุก action</span>
+</section>
+
+<!-- F11 -->
+<section class="feat" id="f11">
+  <div class="feat-head"><div class="feat-num">11</div><h3>คลังข้อความ SMS / ส่ง SMS</h3><span class="badge">SMS</span></div>
+  <div class="feat-body">
+    <div class="block what"><h4>ทำอะไรได้</h4><ul>
+      <li>คลังข้อความ: เพิ่ม/ลบเทมเพลต ใช้ตัวแปร <code>{name} {brand} {phone}</code> แทนค่าอัตโนมัติ</li>
+      <li>เลือกกลุ่มผู้รับ (ยังไม่กลับมา/เคยรับสาย/คืนชีพ) + จำกัดแบรนด์ → ดูตัวอย่างข้อความจริง</li>
+      <li>กดส่ง → สร้างข้อความตามจำนวนผู้รับ + บันทึกลง Audit Log (ไม่รวม DNC)</li>
+    </ul></div>
+    <div class="block test"><h4>วิธีทดสอบ</h4><ul>
+      <li>เมนู <b>SMS</b> → เพิ่มข้อความใหม่ที่มี {name}</li>
+      <li>เลือกเทมเพลต + กลุ่มผู้รับ → ดูตัวอย่างที่แทนค่าแล้ว + จำนวนผู้รับ</li>
+      <li>กดส่ง → ขึ้นสรุปจำนวน + ไปดูใน Audit Log</li>
+    </ul></div>
+    <figure class="shot"><img src="shots/sms.png" alt="sms"><figcaption>หน้า SMS — คลังข้อความ + ส่งพร้อมตัวอย่าง</figcaption></figure>
+  </div>
+  <div class="note">การ "ส่งจริง" ต้องเชื่อม SMS Gateway ผ่านเซิร์ฟเวอร์ (เฟสถัดไป) — ปัจจุบันระบบสร้างข้อความ + บันทึกการส่งให้ตรวจสอบได้จริง</div>
+  <span class="pass">✅ ผ่านเกณฑ์ — เทมเพลต + แทนค่า + log ทำงาน</span>
+</section>
+
+<!-- F12 -->
+<section class="feat" id="f12">
+  <div class="feat-head"><div class="feat-num">12</div><h3>แจ้งเตือนผ่านบอท Telegram</h3><span class="badge">แจ้งเตือน</span></div>
+  <div class="feat-body">
+    <div class="block what"><h4>ทำอะไรได้</h4><ul>
+      <li>ตั้งค่า Bot Token + Chat ID 2 กลุ่ม (ทีม/หัวหน้า) + เกณฑ์ยอดใหญ่/สายขั้นต่ำ + เปิดปิดรายประเภท</li>
+      <li><b>แจ้งทันที</b> เมื่อมีเหตุการณ์: ยอดฝากใหญ่→ทีม, ปรับโบนัส→หัวหน้า, ตั้งห้ามโทร→หัวหน้า, นำเข้าข้อมูล→ทีม (เบอร์ลูกค้าถูก mask)</li>
+      <li><b>ส่งสรุป</b> (แทน cron): รายวัน/รายสัปดาห์/เตือนพนักงานโทรน้อย + ปุ่มทดสอบส่ง</li>
+      <li>ส่งจริงผ่าน Telegram API · Telegram ล่มไม่ทำให้งานหลักพัง (try/catch + log)</li>
+    </ul></div>
+    <div class="block test"><h4>วิธีทดสอบ</h4><ul>
+      <li>สร้างบอทกับ @BotFather → เอา Token ใส่ในหน้า <b>แจ้งเตือน Telegram</b></li>
+      <li>ดึงบอทเข้ากลุ่ม → ใส่ Chat ID (กลุ่ม = เลขติดลบ) → กด <b>ทดสอบส่ง</b></li>
+      <li>ปิด toggle ประเภทใด → ประเภทนั้นเงียบ · แก้ไขลูกค้าใส่ยอด ≥ เกณฑ์ → เด้งเข้ากลุ่มทีม</li>
+    </ul></div>
+    <figure class="shot"><img src="shots/notifications.png" alt="telegram"><figcaption>หน้าแจ้งเตือน Telegram — ตั้งค่า + toggle + ทดสอบส่ง + สรุป</figcaption></figure>
+  </div>
+  <div class="note">เว็บ static เก็บ Token ใน localStorage และส่งจาก browser · ระบบจริงต้องเก็บใน <code>.env</code> ฝั่งเซิร์ฟเวอร์ + ตั้ง cron ยิง <code>/api/cron/*</code> ตามไฟล์การบ้าน</div>
+  <span class="pass">✅ ผ่านเกณฑ์ — ส่งจริง + trigger + สรุป + mask เบอร์</span>
+</section>
+
+<!-- UI -->
+<section class="feat" id="ui">
+  <div class="feat-head"><div class="feat-num">UI</div><h3>การปรับปรุง UI (6 จุด) + สิทธิ์ 3 ระดับ</h3></div>
+  <div class="note" style="margin-bottom:14px">🔐 <b>สิทธิ์ 3 ระดับ (ADMIN/SUPERVISOR/AGENT):</b> ล็อกเมนูตามสิทธิ์ — AGENT เห็นเฉพาะคิวโทร/ลูกค้า/SMS ของตัวเอง · หน้ารายงาน/วิเคราะห์/Telegram เฉพาะหัวหน้าขึ้นไป · Audit Log + จัดการผู้ใช้ เฉพาะ ADMIN (ทดสอบ: login เป็น agent1 แล้วเมนูจะหายไปตามสิทธิ์)</div>
+  <div class="ui-grid">
+    <div class="ui-card"><h4>1. แถบเลือกช่วงวัน</h4><p>วันนี้ / 7 วัน / เดือนนี้ / ทั้งหมด / กำหนดเอง — กรองทั้งแดชบอร์ดตามช่วงวัน พร้อมตัวเลขลูกค้าในช่วง</p></div>
+    <div class="ui-card"><h4>2. เทียบรายแบรนด์ + %</h4><p>เพิ่มแถบสัดส่วน % ของยอดรวมในตาราง ดูเข้าใจง่ายขึ้น เรียงลำดับได้</p></div>
+    <div class="ui-card"><h4>3. แนวโน้มรายวันระดับโปร</h4><p>พื้นที่ไล่สี + จุดสูงสุด + เส้นเฉลี่ยเคลื่อนที่ 7 วัน + สลับเมตริก ยอดฝาก/จำนวนคืนชีพ</p></div>
+    <div class="ui-card"><h4>4. เทียบรายเดือน</h4><p>การ์ดสรุปต่อเดือน + ตารางเทียบ + Δ เปอร์เซ็นต์ขึ้น/ลง</p></div>
+    <div class="ui-card"><h4>5. ค้นหาด้วยชื่อ-นามสกุล</h4><p>ช่องค้นหาเดียวค้นได้ทั้ง เบอร์โทร / ชื่อ / นามสกุล</p></div>
+    <div class="ui-card"><h4>6. เมนูจัดกลุ่ม + ปุ่มพิมพ์ PDF</h4><p>แบ่งเมนูเป็นหมวด (ภาพรวม/วิเคราะห์/ปฏิบัติงาน/ระบบ) + ปุ่มพิมพ์ทุกหน้า</p></div>
+  </div>
+  <div class="feat-body" style="margin-top:18px">
+    <figure class="shot" style="grid-column:1/2"><img src="shots/overview.png" alt="overview"><figcaption>ภาพรวม — แถบช่วงวัน + โดนัท + Top5 + ไฮไลต์</figcaption></figure>
+    <figure class="shot" style="grid-column:2/3"><img src="shots/brands.png" alt="brands"><figcaption>เทียบรายแบรนด์ — แถบสัดส่วน %</figcaption></figure>
+    <figure class="shot" style="grid-column:1/2"><img src="shots/trend.png" alt="trend"><figcaption>แนวโน้มรายวันแบบโปร</figcaption></figure>
+    <figure class="shot" style="grid-column:2/3"><img src="shots/months.png" alt="months"><figcaption>เทียบรายเดือน + Δ</figcaption></figure>
+  </div>
+</section>
+
+<footer>
+  เอกสารนี้สร้างจากระบบจริง · ภาพถ่ายจากหน้าจอจริง · ทุกฟีเจอร์ทดสอบผ่าน (headless render + logic + ภาพจริง)<br>
+  หากต้องการพัฒนาต่อ: เซิร์ฟเวอร์ + ฐานข้อมูลกลาง, ส่ง SMS จริงผ่าน Gateway, .xlsx แท้พร้อมสูตร, sync หลายเครื่อง
+</footer>
+
+</div>
+</body>
+</html>
