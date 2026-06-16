@@ -288,12 +288,12 @@ function renderQueue(){
 // callbacks
 function renderCallbacks(){
   const today=new Date(DATA_MAX);
-  const list=D.customers.map((c,i)=>({c,i,dt:pdate(c.next)})).filter(x=>x.dt).sort((a,b)=>a.dt-b.dt);
+  const list=roleScope(D.customers).map(c=>({c,dt:pdate(c.next)})).filter(x=>x.dt).sort((a,b)=>a.dt-b.dt);
   let due=0;
   let h='<thead><tr><th>นัดวันที่</th><th>สถานะนัด</th><th>แบรนด์</th><th>ชื่อ</th><th>เบอร์โทร</th><th>ผลการโทรล่าสุด</th><th>จัดการ</th></tr></thead><tbody>';
   list.forEach(x=>{const overdue=x.dt.getTime()<DATA_MAX,isToday=x.dt.getTime()===DATA_MAX;if(overdue||isToday)due++;
     const tag=overdue?'<span class="tag" style="background:rgba(239,68,68,.18);color:#fca5a5">เลยกำหนด</span>':isToday?'<span class="tag" style="background:rgba(245,158,11,.2);color:#fcd34d">ครบกำหนด</span>':'<span class="tag" style="background:rgba(59,130,246,.15);color:#60a5fa">รออยู่</span>';
-    h+=`<tr><td>${esc(x.c.next)}</td><td>${tag}</td><td>${esc(x.c.b)}</td><td>${esc(cname(x.c)||'-')}</td><td>${esc(x.c.p||'-')}</td><td>${esc(x.c.r||'-')}</td><td><span class="act-link" data-edit="${x.i}">แก้ไข</span></td></tr>`;});
+    h+=`<tr><td>${esc(x.c.next)}</td><td>${tag}</td><td>${esc(x.c.b)}</td><td>${esc(cname(x.c)||'-')}</td><td>${esc(x.c.p||'-')}</td><td>${esc(x.c.r||'-')}</td><td><span class="act-link" data-edit="${D.customers.indexOf(x.c)}">แก้ไข</span></td></tr>`;});
   h+='</tbody>';$('#cbTable').innerHTML=list.length?h:'<tbody><tr><td>ยังไม่มีรายการนัดโทรกลับ — ตั้งได้ที่หน้าแก้ไขลูกค้า</td></tr></tbody>';
   $('#cbToday').textContent=list.length?`${due} รายการครบ/เลยกำหนด`:'';
   $('#cbTable').querySelectorAll('[data-edit]').forEach(a=>a.onclick=()=>openCustModal(+a.dataset.edit));
