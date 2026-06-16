@@ -639,7 +639,7 @@ $('#btnAddCust').addEventListener('click',()=>openCustModal(-1));
     $('#smsPick').innerHTML=t.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('');
     $('#smsTemplates').querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{saveTpl(getTpl().filter(x=>String(x.id)!==b.dataset.del));render();updatePreview();});
     updatePreview();}
-  function audience(){const a=$('#smsAudience').value,brand=$('#smsBrand').value;return D.customers.filter(c=>{if(brand&&c.b!==brand)return false;const ret=(Number(c.dep)||0)>0;if(a==='dnc-safe-pending')return !ret&&!c.dnc;if(a==='answered')return c.a&&!c.dnc;if(a==='returned')return ret;return true;});}
+  function audience(){const a=$('#smsAudience').value,brand=$('#smsBrand').value;return roleScope(D.customers).filter(c=>{if(brand&&c.b!==brand)return false;const ret=(Number(c.dep)||0)>0;if(a==='dnc-safe-pending')return !ret&&!c.dnc;if(a==='answered')return c.a&&!c.dnc;if(a==='returned')return ret;return true;});}
   function fill(text,c){const promo='โบนัส 20%';return String(text)
     .replace(/\{\{?\s*name\s*\}?\}/gi,cname(c)||'ลูกค้า')
     .replace(/\{\{?\s*(brand|เว็บ)\s*\}?\}/gi,c.b||'')
